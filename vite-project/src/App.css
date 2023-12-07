@@ -1,3 +1,7 @@
+.body {
+  position: relative;
+}
+
 .button-div {
   border: 1px solid white;
   width: 100px;
@@ -35,8 +39,14 @@
   display: flex;
 }
 
-.color__change-box {
+.color__change-box, .corner {
   width: 200px;
   height: 200px;
   border: solid 1px white;
+}
+
+.corner {
+  position: absolute;
+  top: 0;
+  right: 0;
 }

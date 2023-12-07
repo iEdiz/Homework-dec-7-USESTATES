@@ -6,6 +6,7 @@ function App() {
   const buttonChangeRef = useRef(null);
   const initialRef = useRef(null);
   const colorChangeRef: React.MutableRefObject<HTMLDivElement | null> = useRef(null);
+  const divToCornerRef = useRef<HTMLDivElement>(null);
 
   const [message, setMessage] = useState('');
   const [updatedMessage, setUpdatedMessage] = useState(message)
@@ -25,7 +26,9 @@ function App() {
   const [initialCount, setInitialCount] = useState(0);
   const [changingInitialInput, setChangingInitialInput] = useState('');
 
-  const [changeWords, setChangeWords] = useState('Add Color')
+  const [changeWords, setChangeWords] = useState('Add Color');
+  const [wordsInsideDiv, setWordsInsideDiv] = useState('');
+  const [divToCornerText, setDivToCornerText] = useState('Send div to corner')
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -113,7 +116,6 @@ function App() {
     const currentRef = colorChangeRef.current;
   
     if (currentRef) {
-
       if (currentRef.style.backgroundColor !== 'gold') {
         currentRef.style.backgroundColor = 'gold'
       } else {
@@ -124,7 +126,26 @@ function App() {
     }
 
     setChangeWords('Clone Box');
+    
   };
+
+  const handleDivToCornerClick = () => {
+    const currentRef = divToCornerRef.current;
+
+    if (currentRef) {
+      if (currentRef.className === 'color__change-box') {
+        currentRef.className = 'corner'
+        setWordsInsideDiv('Esmu stūrī');
+        setDivToCornerText('Send div back')
+      } else {
+        currentRef.className = 'color__change-box'
+        setWordsInsideDiv('');
+        setDivToCornerText('Send div to corner')
+      }
+    }
+
+    
+  }
 
   useEffect(() => {
     if (initialPageLoad === 0) {
@@ -219,7 +240,19 @@ function App() {
         <div className='color__change-box' ref={colorChangeRef}></div>
       </div>
       <button
-      onClick={handleBoxColorClick}>{changeWords}</button>
+        onClick={handleBoxColorClick}>{changeWords}
+      </button>
+
+      <div className='corner-div-wrapper'>
+        <div className='color__change-box' ref={divToCornerRef}>
+          {wordsInsideDiv}
+        </div>
+      </div>
+      <button
+        onClick={handleDivToCornerClick}
+        >
+          {divToCornerText}
+      </button>
     </>
   )
 }
