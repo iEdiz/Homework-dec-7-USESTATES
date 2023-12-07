@@ -1,48 +1,353 @@
-.body {
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
   position: relative;
+  background-color: #71616a;
+  font-family: Indie Flower;
+  font-weight: 400;
 }
 
-.button-div {
-  border: 1px solid white;
-  width: 100px;
-  height: 100px;
+button {
+  cursor: pointer;
+  font-family: 'Patrick Hand', cursive;
+  color: rgb(41, 38, 38);
+
+    &:disabled {
+      cursor:auto;
+  }
 }
 
-.div-wrapper {
+input {
+  background-color: #eee3e3;
+  outline: none;
+
+    &:focus {
+      box-shadow: 0 0 5px 4px #7c6868;
+      transition: 0.3s;
+    }
+}
+
+.main-wrapper {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-header {
+  font-size: 40px;
+  text-align: center;
+  margin: 0 0 15px 0;
+}
+
+.main__input-wrapper {
+  background-color: #D5B4B4;
+  padding: 20px 40px 10px 40px;
+  border-radius: 10px;
+  margin-top: 10px;
+  box-shadow: 0 0 5px 3px #625252;
+}
+
+.count-wrapper {
+  background-color: #d3c0c0;
+  padding: 30px 50px 10px 50px;
+  border-radius: 10px;
+  margin: 20px 0px;
+  box-shadow: 0 0 5px 3px #625252;
+}
+
+.added-div-wrapper {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.wrapper__input, .wrapper__updated-input {
+  padding: 15px 20px;
+  border-radius: 10px;
+  border: none;
+}
+
+.wrapper__input {
+   margin: 10px 0px 15px 0;
+   font-family: 'Patrick Hand', cursive;
+   font-size: 20px;
+}
+
+.wrapper__updated-input {
+  margin: 0px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 20px;
+}
+
+.wrapper__button {
+  padding: 15px 25px;
+  margin-left: 15px;
+  border-radius: 10px;
+  border: none;
+  font-size: 20px;
+  background-color: #a58b8b;
+  border: 1px solid #867070;
+
+    &:active {
+      background-color: #867070;
+      border: 1px solid #a58b8b;
+    }
+}
+
+.updated {
+  font-size: 30px;
+}
+
+.count-button-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.count__button, .disabled {
+  padding: 20px 40px;
+  font-size: 18px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+  background-color: #a99b9b;
+  border: 1px solid #867070;
+
+  &:disabled {
+    opacity: 0.4;
+
+    &:active {
+      background-color: #a99b9b;
+      border: 1px solid #867070;
+    }
+  }
+
+  &:active {
+    background-color: #867070;
+    border: 1px solid #a99b9b;
+  }
+}
+
+.count__div {
+  border: 1px solid white;
+  width: 200px;
+  height: 100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  border-radius: 5px;
+}
+
+.count__div-title {
+  font-size: 30px;
+}
+
+.add-div-wrapper {
+  margin-bottom: 30px;
+}
+
+.add__div-button {
+  padding: 15px 27px 18px 27px;
+  font-size: 20px;
+  border-radius: 10px;
+  border: none;
+  margin-right: 15px;
+  background-color: #b59898;
+  border: 1px solid #867070;
+
+    &:disabled {
+      opacity: 0.5;
+
+        &:active {
+          background-color: #b59898;
+          border: 1px solid #867070;
+        }
+    }
+
+    &:active {
+      background-color: #867070;
+      border: 1px solid #b59898;
+    }
+}
+
+.add__div-selection {
+  padding: 13px 35px 15px 15px;
+  font-size: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Patrick Hand', cursive;
+  background-color: #eee3e3;
+}
+
+.add__div-box {
+  width: 110px;
+  height: 100px;
+  margin-right: 15px;
+  border-radius: 5px;
+  border: 1px white solid;
 }
 
 .blue {
   background-color: blue;
-  width: 100px;
-  height: 100px;
 }
 
 .orange {
   background-color: orange;
-  width: 100px;
-  height: 100px;
 }
 
 .yellow {
   background-color: yellow;
-  width: 100px;
-  height: 100px;
 }
 
-.div {
-  width: 100px;
-  height: 100px;
+.add-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #D5B4B4;
+  padding: 40px 40px 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 3px #625252;
+}
+
+.add-count-text {
+  font-size: 30px;
+  margin: 15px 0 0 0;
+}
+
+.count-button {
+  padding: 20px 35px;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+  background-color: #a58b8b;
+  border: 1px solid #867070;
+
+    &:active {
+      background-color: #867070;
+      border: 1px solid #a58b8b;
+  }
+}
+
+.add-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #d3c0c0;
+  padding: 30px 50px 20px 50px;
+  border-radius: 10px;
+  margin: 20px 0px;
+  box-shadow: 0 0 5px 3px #625252;
+}
+
+.add-size-wrapper {
+  display: flex;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.size__add-button, .size__remove-button {
+  padding: 20px 30px;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+  background-color: #a99b9b;
+  border: 1px solid #867070;
+
+    &:disabled {
+      opacity: 0.4;
+
+      &:active {
+        background-color: #a99b9b;
+        border: 1px solid #867070;
+      }
+    }
+
+    &:active {
+      background-color: #867070;
+      border: 1px solid #a99b9b;
+    }
+}
+
+.size__remove-button {
+  padding: 20px 32px;
+}
+
+.change-count-input {
+  padding: 15px 20px;
+  border-radius: 10px;
+  border: none;
+  margin-top: 15px;
 }
 
 .color-change-wrapper {
   display: flex;
+  margin-top: 15px;
+  gap: 15px;
 }
 
-.color__change-box, .corner {
+.color__change-button {
+  padding: 15px 25px;
+  font-size: 16px;
+  margin: 20px 0 30px 0;
+  border-radius: 10px;
+  border: none;
+  font-size: 20px;
+  background-color: #b59898;
+  border: 1px solid #867070;
+
+    &:disabled {
+      opacity: 0.5;
+
+        &:active {
+          background-color: #b59898;
+          border: 1px solid #867070;
+        }
+    }
+
+    &:active {
+      background-color: #867070;
+      border: 1px solid #b59898;
+    }
+}
+
+.color__change-box, .color__corner-box, .corner {
   width: 200px;
-  height: 200px;
+  height: 120px;
   border: solid 1px white;
+  border-radius: 5px;
+}
+
+.corner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 10px 0 0;
+}
+
+.corner__button {
+  padding: 20px 30px;
+  font-size: 18px;
+  margin: 20px 0 10px 0;
+  border-radius: 10px;
+  border: none;
+  font-size: 20px;
+  background-color: #b59898;
+  border: 1px solid #867070;
+
+    &:active {
+      background-color: #867070;
+      border: 1px solid #b59898;
+  }
 }
 
 .corner {

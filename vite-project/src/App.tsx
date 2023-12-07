@@ -27,8 +27,12 @@ function App() {
   const [changingInitialInput, setChangingInitialInput] = useState('');
 
   const [changeWords, setChangeWords] = useState('Add Color');
+  const [coloredDivs, setColoredDivs] = useState(2);
+  const [disableColoredButton, setDisableColoredButton] = useState(false);
   const [wordsInsideDiv, setWordsInsideDiv] = useState('');
-  const [divToCornerText, setDivToCornerText] = useState('Send div to corner')
+  const [divToCornerText, setDivToCornerText] = useState('Send Div To Corner')
+
+  
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -75,12 +79,12 @@ function App() {
     if (color === 'Random') {
       const newDiv = <div 
         key={divList.length} 
-        className={'div'.toLowerCase()} 
+        className={'add__div-box'.toLowerCase()} 
         style={{backgroundColor: randomColor()}}></div>;
         setDivList([...divList, newDiv])
 
     } else {
-      const newDiv = <div key={divList.length} className={color.toLowerCase()}></div>;
+      const newDiv = <div key={divList.length} className={color.toLowerCase() + " " + 'add__div-box'}></div>;
       setDivList([...divList, newDiv]);
     }
   }
@@ -105,6 +109,12 @@ function App() {
     setInitialCount(initialCount + 1);
   }
 
+  const handleSubToInitialCount = () => {
+    if (initialCount > 100) {
+      setInitialCount(initialCount - 1);
+    }
+  }
+
   const handleInitialInput = (event) => {
     event.preventDefault();
 
@@ -118,33 +128,35 @@ function App() {
     if (currentRef) {
       if (currentRef.style.backgroundColor !== 'gold') {
         currentRef.style.backgroundColor = 'gold'
-      } else {
+
+        setChangeWords('Clone Box');
+      } else if (coloredDivs <= 7) {
         const clonedDiv: HTMLDivElement = currentRef.cloneNode(true) as HTMLDivElement;
-  
         currentRef.insertAdjacentElement('afterend', clonedDiv)
+
+        setColoredDivs(coloredDivs + 1)
       }
     }
-
-    setChangeWords('Clone Box');
-    
   };
+
+  const handleDisableColorButton = () => {
+    setDisableColoredButton(true);
+  } 
 
   const handleDivToCornerClick = () => {
     const currentRef = divToCornerRef.current;
 
     if (currentRef) {
-      if (currentRef.className === 'color__change-box') {
+      if (currentRef.className === 'color__corner-box') {
         currentRef.className = 'corner'
-        setWordsInsideDiv('Esmu stūrī');
-        setDivToCornerText('Send div back')
+        setWordsInsideDiv('Got Sent To Corner');
+        setDivToCornerText('Send Div Back')
       } else {
-        currentRef.className = 'color__change-box'
+        currentRef.className = 'color__corner-box'
         setWordsInsideDiv('');
-        setDivToCornerText('Send div to corner')
+        setDivToCornerText('Send Div To Corner')
       }
     }
-
-    
   }
 
   useEffect(() => {
@@ -160,100 +172,153 @@ function App() {
   }, [])
 
   return (
-    <>
-      <div className='input-wrapper'>
+    <section className='main-wrapper'>
+      <div className='main__input-wrapper'>
+        <h2 className='main-header'>Updated Messages</h2>
         <input 
-        type="text" 
-        autoFocus
-        />
+            type="text" 
+            autoFocus
+            className='wrapper__input'
+            placeholder='Auto focused...'
+          />
+        <form>
+          <input 
+            type="text" 
+            className='wrapper__updated-input'
+            placeholder='Update text below...'
+            onChange={handleChange}
+            value={message}
+            ref={buttonRef}
+          />
+          <button 
+            type='button'
+            className='wrapper__button'
+            onClick={handleSaveClick}
+            >
+            Update
+          </button>
+          <h2>{message}</h2>
+          <h2 className='updated'>Updated: {updatedMessage}</h2>
+        </form>
       </div>
-      <form>
-        <input 
-        type="text" 
-        onChange={handleChange}
-        value={message}
-        ref={buttonRef}
-        />
-        <button type='button' onClick={handleSaveClick}>Update</button>
-        <h2>{message}</h2>
-        <h2>Updated: {updatedMessage}</h2>
-      </form>
-      <button
-      disabled={isDisabled}
-      className={isDisabled ? 'disabled' : ''}
-      >
-        POGA
-      </button>
+     
+     <div className='count-wrapper'>
+        <div className='count-button-wrapper'>
+          <h2 className='main-header'>Multiply</h2>
+          <button
+            disabled={isDisabled}
+            className={isDisabled ? 'disabled' : 'count__button'}
+            >
+            POGA
+          </button>
 
-      <button type='button' onClick={handleCount}>
-        Count: {total}
-      </button>
-      <div className='button-div'>
-        {total * 2}
+          <button 
+            type='button' 
+            className='count__button'
+            onClick={handleCount}>
+            Count: {total}
+          </button>
+          </div>
+          <div className='count__div'>
+            <h3 className='count__div-title'>{total * 2}</h3>
+          </div>
       </div>
 
-      <button
-        type='button' 
-        onClick={divList.length < 10 ? handleAddDiv : disableAddDivButton}
-        disabled={divList.length < 10 ? isAddDivDisabled : !isAddDivDisabled}
-        > + 
-      </button>
-      <select onChange={handleDropdownColor}>
-        <option value="">Choose color</option>
-        <option value="Blue">Blue</option>
-        <option value="Yellow">Yellow</option>
-        <option value="Orange">Orange</option>
-        <option value="Random">Random Color</option>
-      </select>
-      <div className='div-wrapper'>
-      {divList.map((div, index) => (
-        <React.Fragment key={index}>{div}</React.Fragment>
-      ))}
+      <div className='add-div-wrapper'>
+        <button
+          type='button'
+          className='add__div-button'
+          onClick={divList.length < 10 ? handleAddDiv : disableAddDivButton}
+          disabled={divList.length < 10 ? isAddDivDisabled : !isAddDivDisabled}
+          > + 
+        </button>
+        <select 
+          className='add__div-selection'
+          onChange={handleDropdownColor}
+          >
+            <option value="">Choose Color</option>
+            <option value="Blue">Blue</option>
+            <option value="Yellow">Yellow</option>
+            <option value="Orange">Orange</option>
+            <option value="Random">Random Color</option>
+        </select>
       </div>
-      <br /><br />
+        <div className='added-div-wrapper'>
+          {divList.map((div, index) => (
+            <React.Fragment key={index}>{div}</React.Fragment>
+          ))}
+        </div>
       
-      <button onClick={handleChangeCount}> + </button>
-        <h3>Count: {changeCount}</h3>
-      <form>
-        <input 
-          type="text"
-          onChange={handleChangeInput}
-          value={changingInput}
-          ref={buttonChangeRef}
-        />
-        <h3>{changingInput}</h3>
-      </form>
-
-      <button onClick={handleAddToInitialCount}> + </button>
-        <h3 style={{fontSize: `${initialCount - 80}px`}}>Count: {initialCount}</h3>
-      <form>
-        <input 
-          type="text"
-          onChange={handleInitialInput}
-          value={changingInitialInput}
-          ref={initialRef}
-        />
-        <h3>{changingInitialInput}</h3>
-      </form>
+      <div className='add-wrapper'>
+        <h2 className='main-header'>Add Count</h2>
+        <button 
+          className='count-button'
+          onClick={handleChangeCount}>
+          + 
+        </button>
+          <h3 className='add-count-text'>Count: {changeCount}</h3>
+        <form>
+          <input 
+            type="text"
+            className='change-count-input'
+            onChange={handleChangeInput}
+            value={changingInput}
+            ref={buttonChangeRef}
+          />
+          <h3>{changingInput}</h3>
+        </form>
+      </div>
+      <div className='add-container'>
+        <h2 className='main-header'>Increase Size</h2>
+        <div className='add-size-wrapper'>
+          <button
+            className='size__add-button'
+            onClick={handleAddToInitialCount}
+            >
+            +
+          </button>
+          <button
+            className='size__remove-button'
+            onClick={handleSubToInitialCount}
+            disabled={initialCount === 100 ? true : false}
+            >
+            -
+          </button>
+        </div>
+          <h3 style={{fontSize: `${initialCount - 70}px`, margin: 0}}>Count: {initialCount}</h3>
+        <form>
+          <input 
+            type="text"
+            className='change-count-input'
+            onChange={handleInitialInput}
+            value={changingInitialInput}
+            ref={initialRef}
+          />
+          <h3>{changingInitialInput}</h3>
+        </form>
+      </div>  
 
       <div className='color-change-wrapper'>
         <div className='color__change-box' ref={colorChangeRef}></div>
       </div>
       <button
-        onClick={handleBoxColorClick}>{changeWords}
+        className='color__change-button'
+        onClick={coloredDivs <= 7 ? handleBoxColorClick : handleDisableColorButton}
+        disabled={coloredDivs <= 7 ? disableColoredButton : !disableColoredButton}
+        >
+          {coloredDivs <= 7 ? changeWords : 'Disabled'}
       </button>
 
-      <div className='corner-div-wrapper'>
-        <div className='color__change-box' ref={divToCornerRef}>
-          {wordsInsideDiv}
-        </div>
+      <div className='color__corner-box' ref={divToCornerRef}>
+        <h3>{wordsInsideDiv}</h3>
       </div>
       <button
+        className='corner__button'
         onClick={handleDivToCornerClick}
         >
           {divToCornerText}
       </button>
-    </>
+    </section>
   )
 }
 
