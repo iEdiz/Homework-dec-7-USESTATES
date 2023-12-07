@@ -32,8 +32,6 @@ function App() {
   const [wordsInsideDiv, setWordsInsideDiv] = useState('');
   const [divToCornerText, setDivToCornerText] = useState('Send Div To Corner')
 
-  
-
   const handleChange = (event) => {
     event.preventDefault();
 
